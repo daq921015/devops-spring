@@ -24,9 +24,6 @@ public class DSearch {
         LOGGER.warn("测试controller warn");
         LOGGER.trace("trace log");
         LOGGER.debug("debug log");
-        LOGGER.info("info log");
-        LOGGER.warn("warn log");
-        LOGGER.error("error log");
         return dEnvService.findAll();
     }
 }
