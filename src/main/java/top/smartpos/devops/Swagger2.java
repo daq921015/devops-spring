@@ -16,27 +16,51 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class Swagger2 {
     //swagger2的配置文件，这里可以配置swagger2的一些基本的内容，比如扫描的包等等
     @Bean
-    public Docket createRestApi() {
+    public Docket createRestApi_baoli() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
+                .groupName("保利会员系统")
+                .apiInfo(apiInfo_baoli())
                 .select()
                 //为当前包路径
                 .apis(RequestHandlerSelectors.basePackage("top.smartpos.devops.controllers"))
-                .paths(PathSelectors.any())
+//                .paths(PathSelectors.any())
+                .paths(PathSelectors.ant("/DSearch/**"))
                 .build();
     }
 
     //构建 api文档的详细信息函数,注意这里的注解引用的是哪个
-    private ApiInfo apiInfo() {
+    private ApiInfo apiInfo_baoli() {
         return new ApiInfoBuilder()
                 //页面标题
-                .title("Spring Boot 测试使用 Swagger2 构建RESTful API")
+                .title("保利会员系统")
                 //创建人
-                .contact(new Contact("MarryFeng", "http://www.baidu.com", "daq921015@163.com"))
+                .contact(new Contact("刘邦龙", "", ""))
                 //版本号
                 .version("1.0")
                 //描述
-                .description("API 描述")
+                .description("保利会员系统接口说明及调试")
                 .build();
     }
+//    @Bean
+//    public Docket ProductApi() {
+//        return new Docket(DocumentationType.SWAGGER_2)
+//                .genericModelSubstitutes(DeferredResult.class)
+//                .useDefaultResponseMessages(false)
+//                .forCodeGeneration(false)
+//                .pathMapping("/")
+//                .select()
+//                .build()
+//                .apiInfo(productApiInfo());
+//    }
+//
+//    private ApiInfo productApiInfo() {
+//        ApiInfo apiInfo = new ApiInfo("XXX系统数据接口文档",
+//                "文档描述。。。",
+//                "1.0.0",
+//                "API TERMS URL",
+//                "联系人邮箱",
+//                "license",
+//                "license url");
+//        return apiInfo;
+//    }
 }

@@ -1,8 +1,6 @@
 package top.smartpos.devops.controllers;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api")
-@Api("swaggerDemoController相关的api")
+@Api(tags = "保利接口", produces = "application/json, application/xml", protocols = "http")
 public class SwaggerDemoController {
     @Autowired
     private DEnvService dEnvService;
@@ -25,8 +23,19 @@ public class SwaggerDemoController {
     private static final Logger logger = LoggerFactory.getLogger(SwaggerDemoController.class);
 
 
-    @ApiOperation(value = "根据id查询学生信息", notes = "查询数据库中某个的学生信息")
-    @ApiImplicitParam(name = "id", value = "学生ID", paramType = "path", required = true, dataType = "Integer")
+    @ApiOperation(
+            value = "根据id查询学生信息",
+            notes = "查询数据库中某个的学生信息",
+            tags = {"学生信息"},
+            produces = "application/json, application/xml",
+            consumes = "application/json, application/xml"
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "学生ID", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "name", value = "学生NAME", required = true, dataType = "String")
+    })
+    @ApiResponses({@ApiResponse(code = 400, message = "Invalid Order")})
+    @ResponseHeader(name = "head1", description = "response head conf")
     @GetMapping(value = "/test")
     public List<DEnv> getStudent() {
         logger.info("开始查询某个学生信息");
