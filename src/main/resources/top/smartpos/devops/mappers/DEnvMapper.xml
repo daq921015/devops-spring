@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="top.smartpos.devops.mappers.DEnvMapper">
     <!--cn.lbl.devops.utils.UnderscoreToCamelCaseMap-->
-    <select id="findAll" resultType="top.smartpos.devops.domains.DEnv">
+    <select id="findAll" resultType="top.smartpos.devops.beans.domains.DEnv">
         select * from d_env
     </select>
 </mapper>

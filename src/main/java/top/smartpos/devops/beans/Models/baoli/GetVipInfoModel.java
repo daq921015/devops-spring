@@ -1,13 +1,12 @@
-package top.smartpos.devops.models.baoli;
+package top.smartpos.devops.beans.Models.baoli;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class GetVipInfoModel {
-    @NotNull(message = "")
+    @NotBlank(message = "asdfsdf")
     private String cellphone;
-    @NotNull
     private String card;
-    @NotNull
     private String dynamiccard;
 
     public String getCellphone() {

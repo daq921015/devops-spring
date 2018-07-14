@@ -1,7 +1,10 @@
-package top.smartpos.devops.domains;
+package top.smartpos.devops.beans.base;
 
 import java.util.Date;
 
+/**
+ * 实体类公共属性：数据库中表都有这些属性
+ */
 public class BasicDomain {
     private Boolean deleted;
     private String memo;

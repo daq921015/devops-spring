@@ -22,9 +22,9 @@ public class Swagger2 {
                 .apiInfo(apiInfo_baoli())
                 .select()
                 //为当前包路径
-                .apis(RequestHandlerSelectors.basePackage("top.smartpos.devops.controllers"))
-//                .paths(PathSelectors.any())
-                .paths(PathSelectors.ant("/DSearch/**"))
+                .apis(RequestHandlerSelectors.basePackage("top.smartpos.devops.controllers.baoli"))
+                .paths(PathSelectors.any())
+//                .paths(PathSelectors.ant("/baoli/**"))
                 .build();
     }
 
@@ -39,6 +39,34 @@ public class Swagger2 {
                 .version("1.0")
                 //描述
                 .description("保利会员系统接口说明及调试")
+                .build();
+    }
+
+    //swagger2的配置文件，这里可以配置swagger2的一些基本的内容，比如扫描的包等等
+    @Bean
+    public Docket createRestApi_haiding() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("海鼎POS系统")
+                .apiInfo(apiInfo_haiding())
+                .select()
+                //为当前包路径
+                .apis(RequestHandlerSelectors.basePackage("top.smartpos.devops.controllers.haiding"))
+                .paths(PathSelectors.any())
+//                .paths(PathSelectors.ant("/haiding/**"))
+                .build();
+    }
+
+    //构建 api文档的详细信息函数,注意这里的注解引用的是哪个
+    private ApiInfo apiInfo_haiding() {
+        return new ApiInfoBuilder()
+                //页面标题
+                .title("海鼎POS系统")
+                //创建人
+                .contact(new Contact("刘邦龙", "", ""))
+                //版本号
+                .version("1.0")
+                //描述
+                .description("海鼎POS系统基础资料对接方案")
                 .build();
     }
 //    @Bean

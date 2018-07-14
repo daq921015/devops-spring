@@ -1,31 +1,27 @@
 package top.smartpos.devops.controllers.baoli;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.annotations.*;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import top.smartpos.devops.models.baoli.GetVipInfoModel;
+import top.smartpos.devops.annotations.ApiRestAction;
+import top.smartpos.devops.beans.Models.baoli.GetVipInfoModel;
+import top.smartpos.devops.beans.protocol.Result;
 import top.smartpos.devops.services.DEnvService;
-import top.smartpos.devops.utils.SpringUtils;
 
 @RestController
-@RequestMapping(value = "/BaoLi")
+@RequestMapping(value = "/baoli")
+@Api(tags = "保利接口", produces = "application/json, application/xml", protocols = "http")
 public class BaoLiController {
-    @Autowired
-    private DEnvService dEnvService;
-    private static final Logger LOGGER = LoggerFactory.getLogger(BaoLiController.class);
-
-    @RequestMapping(value = "/getVipInfo", method = RequestMethod.GET)
-    @ResponseBody
-    public String list() throws Exception {
-        try {
-            Object obj = SpringUtils.validateAndThrow(GetVipInfoModel.class);
-            return "123";
-        } catch (Exception e) {
-            return e.getMessage();
-        }
+    @GetMapping(value = "/getVipInfo")
+    @ApiOperation(value = "获取会员信息会员查询验证接口", notes = "根据会员手机号、卡号、动态会员号等查询会员信息,三者必须传其一", tags = {"获取会员信息"},
+            produces = "application/json, application/xml", consumes = "application/json, application/xml")
+    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "学生ID", required = true, dataType = "integer"),
+            @ApiImplicitParam(name = "name", value = "学生NAME", required = true, dataType = "String")})
+    @ApiResponses({@ApiResponse(code = 400, message = "Invalid Order")})
+    @ResponseHeader(name = "head1", description = "response head conf")
+    @ApiRestAction(modelClass = GetVipInfoModel.class, serviceClass = DEnvService.class, methodName = "findAll")
+    public Result getVipInfo() throws Exception {
+        return null;
     }
 }

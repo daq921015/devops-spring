@@ -1,4 +1,6 @@
-package top.smartpos.devops.domains;
+package top.smartpos.devops.beans.domains;
+
+import top.smartpos.devops.beans.base.BasicDomain;
 
 import java.math.BigInteger;
 

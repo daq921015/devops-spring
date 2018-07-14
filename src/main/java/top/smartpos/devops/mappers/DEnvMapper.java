@@ -1,7 +1,7 @@
 package top.smartpos.devops.mappers;
 
 import org.apache.ibatis.annotations.Mapper;
-import top.smartpos.devops.domains.DEnv;
+import top.smartpos.devops.beans.domains.DEnv;
 
 import java.util.List;
 

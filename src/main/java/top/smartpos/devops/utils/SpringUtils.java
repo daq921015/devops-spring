@@ -4,11 +4,11 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+import top.smartpos.devops.beans.Models.baoli.GetVipInfoModel;
+import top.smartpos.devops.enums.ResultEnum;
 import top.smartpos.devops.exceptions.ApiException;
 
 import javax.servlet.ServletContext;
@@ -21,7 +21,37 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.*;
 
+/**
+ * 项目工具类
+ */
 public class SpringUtils {
+    /**
+     * 获取请求上下文
+     *
+     * @return
+     */
+    public static HttpServletRequest obtainHttpServletRequest() {
+        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+    }
+
+    /**
+     * 获取serverlet容器上下文
+     *
+     * @return
+     */
+    public static ServletContext obtainServletContext() {
+        return obtainHttpServletRequest().getServletContext();
+    }
+
+    /**
+     * 获取程序上下文
+     *
+     * @return
+     */
+    public static ApplicationContext obtainApplicationContext() {
+        return WebApplicationContextUtils.getWebApplicationContext(obtainServletContext());
+    }
+
     /**
      * 获取类及其父类的所有属性
      *
@@ -34,7 +64,7 @@ public class SpringUtils {
             Field[] fields = modelClass.getDeclaredFields();
             for (Field field : fields) {
                 int modifiers = field.getModifiers();
-                //变量修饰符不能为 static final native
+                //属性修饰符不能为 static final native
                 if (!(Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers))) {
                     allFields.add(field);
                 }
@@ -50,8 +80,7 @@ public class SpringUtils {
      * @return
      */
     public static Map<String, String> obtainRequestParameters() {
-        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = requestAttributes.getRequest();
+        HttpServletRequest request = obtainHttpServletRequest();
         Map<String, String> requestParameters = new LinkedHashMap<>();
         Map<String, String[]> parameterMap = request.getParameterMap();
         for (Map.Entry<String, String[]> entry : parameterMap.entrySet()) {
@@ -90,72 +119,18 @@ public class SpringUtils {
         T obj = instantiateObject(modelClass, requestParameters);
         Validator validator = obtainValidator();
         List<Field> allFields = obtainAllFields(modelClass);
-        for (Field field : allFields) {
-//            Set<ConstraintViolation<Object>> constraintViolations = validator.validateProperty(obj, field.getName());
+        for (Field field : allFields) {//逐个遍历所有类属性（字段），验证属性注解，不通过抛出异常
             String fieldName = field.getName();
             Iterator<ConstraintViolation<T>> iterator = validator.validateProperty(obj, fieldName).iterator();
-            /*if (CollectionUtils.isNotEmpty(constraintViolations)) {
-                throw new ApiException("参数验证失败");
-            }*/
             if (iterator.hasNext()) {
                 ConstraintViolation<T> constraintViolation = iterator.next();
-                field.getAnnotation(constraintViolation.getConstraintDescriptor().getAnnotation().annotationType());
                 String message = constraintViolation.getMessage();
-                if (StringUtils.isBlank(message)) {
-                    Locale locale = LocaleContextHolder.getLocale();
-                    String annotationSimpleName = constraintViolation.getConstraintDescriptor().getAnnotation().annotationType().getSimpleName();
-                    String defaultMessage = obtainParameterErrorMessage(fieldName);
-                    message = obtainMessageSource().getMessage(modelClass.getName() + "." + fieldName + "." + annotationSimpleName, null, defaultMessage, locale);
-                }
-                throw new ApiException(message);
+                //更改枚举，参数验证异常的提示内容
+                ResultEnum param_validate = ResultEnum.PARAM_VALIDATE_ERROR;
+                param_validate.setMsg(message);
+                throw new ApiException(param_validate);
             }
         }
-//        for (Field field : allFields) {
-//            String fieldName = field.getName();
-//             validator.validateProperty(obj, field.getName());
-//            if (iterator.hasNext()) {
-//                ConstraintViolation<Object> constraintViolation = iterator.next();
-//                Locale locale = LocaleContextHolder.getLocale();
-//                String annotationSimpleName = constraintViolation.getConstraintDescriptor().getAnnotation().annotationType().getSimpleName();
-//                String defaultMessage = ApplicationHandler.obtainParameterErrorMessage(fieldName);
-//                String message = obtainMessageSource().getMessage(modelClassName + "." + field.getName() + "." + annotationSimpleName, null, defaultMessage, locale);
-//                throw new ApiException(message);
-//            }
-//        }
         return obj;
-    }
-
-    public static String obtainParameterErrorMessage(String parameterName) {
-        String message = null;
-        return message;
-    }
-
-    public static MessageSource obtainMessageSource() {
-        return obtainApplicationContext().getBean(MessageSource.class);
-    }
-
-    public static ServletRequestAttributes getServletRequestAttributes() {
-        return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-    }
-
-    public static HttpServletRequest getHttpServletRequest() {
-        return getServletRequestAttributes().getRequest();
-    }
-
-    private static ServletContext servletContext;
-    private static ApplicationContext applicationContext;
-
-    public static ServletContext obtainServletContext() {
-        if (servletContext == null) {
-            servletContext = getHttpServletRequest().getServletContext();
-        }
-        return servletContext;
-    }
-
-    public static ApplicationContext obtainApplicationContext() {
-        if (applicationContext == null) {
-            applicationContext = WebApplicationContextUtils.getWebApplicationContext(obtainServletContext());
-        }
-        return applicationContext;
     }
 }
