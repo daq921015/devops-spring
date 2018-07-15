@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-import top.smartpos.devops.beans.Models.baoli.GetVipInfoModel;
 import top.smartpos.devops.enums.ResultEnum;
 import top.smartpos.devops.exceptions.ApiException;
 
@@ -84,7 +83,7 @@ public class SpringUtils {
         Map<String, String> requestParameters = new LinkedHashMap<>();
         Map<String, String[]> parameterMap = request.getParameterMap();
         for (Map.Entry<String, String[]> entry : parameterMap.entrySet()) {
-            requestParameters.put(entry.getKey(), StringUtils.trimToEmpty(StringUtils.join(entry.getValue(), ",")));
+            requestParameters.put(entry.getKey(), StringUtils.trimToNull(StringUtils.join(entry.getValue(), ",")));
         }
         return requestParameters;
     }

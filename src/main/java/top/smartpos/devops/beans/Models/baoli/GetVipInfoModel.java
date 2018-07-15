@@ -1,10 +1,10 @@
 package top.smartpos.devops.beans.Models.baoli;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 
 public class GetVipInfoModel {
-    @NotBlank(message = "asdfsdf")
+    @Pattern(regexp = "^\\d{11,20}$", message = "手机号必须为11~20位的整数")
     private String cellphone;
     private String card;
     private String dynamiccard;

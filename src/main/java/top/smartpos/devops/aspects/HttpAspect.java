@@ -28,10 +28,10 @@ public class HttpAspect {
     private void LogRequestInfo(ProceedingJoinPoint proceedingJoinPoint) {
         HttpServletRequest request = SpringUtils.obtainHttpServletRequest();
         LogUtils.info("url={}", request.getRequestURL());
-        LogUtils.info("method={}", request.getMethod());
-        LogUtils.info("ip={}", request.getRemoteAddr());
-        LogUtils.info("class_method={}", proceedingJoinPoint.getSignature().getDeclaringTypeName() + "." + proceedingJoinPoint.getSignature().getName());
-        LogUtils.info("args={}", proceedingJoinPoint.getArgs());
+//        LogUtils.info("method={}", request.getMethod());
+//        LogUtils.info("ip={}", request.getRemoteAddr());
+//        LogUtils.info("class_method={}", proceedingJoinPoint.getSignature().getDeclaringTypeName() + "." + proceedingJoinPoint.getSignature().getName());
+//        LogUtils.info("args={}", proceedingJoinPoint.getArgs());
     }
 
     /**
@@ -43,7 +43,7 @@ public class HttpAspect {
      */
     @Around("log() && @annotation(apiRestAction) ")
     public Object doAround(ProceedingJoinPoint proceedingJoinPoint, ApiRestAction apiRestAction) throws Throwable {
-//        LogRequestInfo(proceedingJoinPoint);
+        LogRequestInfo(proceedingJoinPoint);
         Class<?> modelClass = apiRestAction.modelClass();
         Class<?> serviceClass = apiRestAction.serviceClass();
         String methodName = apiRestAction.methodName();
