@@ -17,12 +17,12 @@ public class DEnvService {
     private DEnvMapper dEnvMapper;
 
     public List<DEnv> findAll(GetVipInfoModel getVipInfoModel) {
-//        String cellphone = getVipInfoModel.getCellphone();
-//        String catd = getVipInfoModel.getCard();
-//        String dynamiccard = getVipInfoModel.getDynamiccard();
-//        if (!(StringUtils.isNotBlank(cellphone) || StringUtils.isNotBlank(catd) || StringUtils.isNotBlank(dynamiccard))) {
-//            throw new ApiException(ResultEnum.BAOLI_VIP_VALIDATE_ERROR);
-//        }
+        String cellphone = getVipInfoModel.getCellphone();
+        String catd = getVipInfoModel.getCard();
+        String dynamiccard = getVipInfoModel.getDynamiccard();
+        if (!(StringUtils.isNotBlank(cellphone) || StringUtils.isNotBlank(catd) || StringUtils.isNotBlank(dynamiccard))) {
+            throw new ApiException(ResultEnum.BAOLI_VIP_VALIDATE_ERROR);
+        }
         return dEnvMapper.findAll();
     }
 }
