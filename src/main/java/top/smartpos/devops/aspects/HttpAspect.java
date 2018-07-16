@@ -5,9 +5,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import top.smartpos.devops.annotations.ApiRestAction;
-import top.smartpos.devops.beans.Models.baoli.GetVipInfoModel;
 import top.smartpos.devops.exceptions.ApiException;
 import top.smartpos.devops.utils.LogUtils;
 import top.smartpos.devops.utils.ResultUtils;
@@ -19,6 +19,7 @@ import java.lang.reflect.Method;
 
 @Aspect
 @Component
+@Order
 public class HttpAspect {
     @Pointcut("execution(public * top.smartpos.devops.controllers..*.*(..))")
     public void log() {

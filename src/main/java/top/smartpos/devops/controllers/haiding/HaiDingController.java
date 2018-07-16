@@ -3,7 +3,6 @@ package top.smartpos.devops.controllers.haiding;
 import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.smartpos.devops.beans.Models.baoli.GetVipInfoModel;
 import top.smartpos.devops.beans.protocol.Result;
