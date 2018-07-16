@@ -1,5 +1,6 @@
 package top.smartpos.devops.beans.Models.baoli;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 
