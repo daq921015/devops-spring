@@ -1,29 +1,54 @@
 package top.smartpos.devops.controllers.haiding;
 
-import io.swagger.annotations.*;
-import org.springframework.http.MediaType;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.smartpos.devops.annotations.ApiRestAction;
 import top.smartpos.devops.beans.Models.baoli.GetVipInfoModel;
+import top.smartpos.devops.beans.Models.haiding.GetPosInfoModel;
+import top.smartpos.devops.beans.Models.haiding.SaleSaveModel;
+import top.smartpos.devops.beans.domains.haiding.ResultHaiDingDomain;
 import top.smartpos.devops.beans.protocol.Result;
+import top.smartpos.devops.services.HaiDingService;
+import top.smartpos.devops.utils.IOUtils;
+import top.smartpos.devops.utils.JsonSchemaValidateUtils;
 import top.smartpos.devops.utils.ResultUtils;
 import top.smartpos.devops.utils.SpringUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.InputStream;
+
 @RestController
-//@RequestMapping(value = "/haiding")
-@Api(tags = "海鼎接口", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-@ApiResponses({@ApiResponse(code = 200, message = "操作成功", response = Result.class),
-        @ApiResponse(code = 401, message = "权限不足", response = Result.class),
-        @ApiResponse(code = 403, message = "禁止访问", response = Result.class),
-        @ApiResponse(code = 404, message = "资源未找到", response = Result.class)
-})
+@RequestMapping(value = "/haiding")
+@Api(tags = "海鼎接口")
 public class HaiDingController {
-    @GetMapping(value = "/saleSave")
-    @ApiOperation(value = "上传销售数据", notes = "上传流水数据，包括订单详情、订单流水以及订单支付")
-    @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "学生ID", dataType = "int", required = true),
-            @ApiImplicitParam(name = "name", value = "学生NAME", dataType = "String", required = true)})
-    public Result saleSave() throws Exception {
-        Object obj = SpringUtils.validateAndThrow(GetVipInfoModel.class);
-        return ResultUtils.success(obj);
+    @PostMapping(value = "/saleSave")
+    @ApiOperation(value = "上传销售数据(该接口不进行积分计算)", notes = "上传流水数据，包括订单详情、订单流水以及订单支付")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "body", value = "body内容", dataType = "SaleSaveModel", required = true, paramType = "body")
+    })
+//    @ApiRestAction(modelClass = SaleSaveModel.class, serviceClass = HaiDingService.class, methodName = "saleSave")
+    public ResultHaiDingDomain saleSave() throws IOException {
+        HttpServletRequest httpServletRequest = SpringUtils.obtainHttpServletRequest();
+        InputStream inputStream = httpServletRequest.getInputStream();
+        String body = IOUtils.inputStreamToString(inputStream);
+        JsonSchemaValidateUtils.validateAndThrow(body, "schemas/haiding/saleSave.json");
+        return null;
+    }
+
+    @PostMapping(value = "/getPosInfo")
+    @ApiOperation(value = "获取收银机相关信息", notes = "资料校验接口，根据收银机号获取相关数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "posId", value = "收银机号", dataType = "String", required = true, paramType = "query")
+    })
+    @ApiRestAction(modelClass = GetPosInfoModel.class, serviceClass = HaiDingService.class, methodName = "getPosInfo")
+    public ResultHaiDingDomain getPosInfo() {
+        return null;
     }
 }

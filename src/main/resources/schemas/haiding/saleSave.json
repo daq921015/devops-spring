@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "properties": {
+    "posNo": {
+      "type": "string"
+    },
+    "flowNo": {
+      "type": "object"
+    },
+    "qty": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "posNo",
+    "qty"
+  ]
+}

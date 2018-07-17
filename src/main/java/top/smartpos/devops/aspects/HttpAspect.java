@@ -54,7 +54,8 @@ public class HttpAspect {
             try {
                 Method method = serviceClass.getMethod(methodName, modelClass);
                 Object returnValue = method.invoke(SpringUtils.obtainApplicationContext().getBean(serviceClass), object);//验证接口参数，并调用后端服务方法
-                return ResultUtils.success(returnValue);
+//                return ResultUtils.success(returnValue);
+                return returnValue;
             } catch (InvocationTargetException e) {
                 Throwable targetException = e.getTargetException();//转成原始异常类型
                 if (targetException instanceof ApiException && StringUtils.isNotBlank(error)) {
