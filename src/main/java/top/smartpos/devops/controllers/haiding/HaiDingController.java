@@ -4,25 +4,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.smartpos.devops.annotations.ApiRestAction;
-import top.smartpos.devops.beans.Models.baoli.GetVipInfoModel;
 import top.smartpos.devops.beans.Models.haiding.GetPosInfoModel;
 import top.smartpos.devops.beans.Models.haiding.SaleSaveModel;
 import top.smartpos.devops.beans.domains.haiding.ResultHaiDingDomain;
-import top.smartpos.devops.beans.protocol.Result;
 import top.smartpos.devops.services.HaiDingService;
-import top.smartpos.devops.utils.IOUtils;
-import top.smartpos.devops.utils.JsonSchemaValidateUtils;
-import top.smartpos.devops.utils.ResultUtils;
-import top.smartpos.devops.utils.SpringUtils;
-
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.InputStream;
 
 @RestController
 @RequestMapping(value = "/haiding")
@@ -33,12 +22,8 @@ public class HaiDingController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "body", value = "body内容", dataType = "SaleSaveModel", required = true, paramType = "body")
     })
-//    @ApiRestAction(modelClass = SaleSaveModel.class, serviceClass = HaiDingService.class, methodName = "saleSave")
-    public ResultHaiDingDomain saleSave() throws IOException {
-        HttpServletRequest httpServletRequest = SpringUtils.obtainHttpServletRequest();
-        InputStream inputStream = httpServletRequest.getInputStream();
-        String body = IOUtils.inputStreamToString(inputStream);
-        JsonSchemaValidateUtils.validateAndThrow(body, "schemas/haiding/saleSave.json");
+    @ApiRestAction(modelClass = SaleSaveModel.class, serviceClass = HaiDingService.class, methodName = "saleSave")
+    public ResultHaiDingDomain saleSave() {
         return null;
     }
 
