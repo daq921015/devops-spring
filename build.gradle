@@ -48,8 +48,8 @@ dependencies {
     compile group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.3'
     //swagger
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
-//    compile 'io.springfox:springfox-swagger-ui:2.9.2'
-    compile 'com.github.xiaoymin:swagger-bootstrap-ui:1.7.5'
+    compile 'io.springfox:springfox-swagger-ui:latest'
+//    compile 'com.github.xiaoymin:swagger-bootstrap-ui:1.7.5'
 //    compile 'com.github.xiaoymin:swagger-bootstrap-ui:1.7.3'
 //    compile 'com.github.caspar-chen:swagger-ui-layer:0.0.4'
 
