@@ -1,19 +1,10 @@
 package top.smartpos.devops.beans.domains.haiding;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
-@ApiModel(value = "银行信息")
 public class BankDomain {
-    @ApiModelProperty("唯一标示")
     private String uuid;
-    @ApiModelProperty("代码")
     private String code;
-    @ApiModelProperty("名称")
     private String name;
-    @ApiModelProperty("统一代码")
     private String uniCode;
-    @ApiModelProperty("类型")
     private String type;
 
     public String getUuid() {

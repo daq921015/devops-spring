@@ -1,8 +1,6 @@
 package top.smartpos.devops.beans.Models.haiding;
 
-import io.swagger.annotations.ApiModel;
 
-@ApiModel(value = "优惠明细")
 public class PromModel {
     private String promType;
     private String promTotal;

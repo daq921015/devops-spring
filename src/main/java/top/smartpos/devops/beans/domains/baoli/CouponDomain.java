@@ -1,33 +1,20 @@
 package top.smartpos.devops.beans.domains.baoli;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 /**
  * 优惠券信息
  */
-@ApiModel(value = "优惠券信息")
 public class CouponDomain {
     /**
      * 优惠券号
      */
-    @ApiModelProperty("优惠券号")
     private String couponkeys;
-    @ApiModelProperty("优惠券名称")
     private String title;
-    @ApiModelProperty("优惠券面值")
     private String couponvalue;
-    @ApiModelProperty("生效时间")
     private String starttime;
-    @ApiModelProperty("失效时间")
     private String endtime;
-    @ApiModelProperty("优惠券类型")
     private String type;
-    @ApiModelProperty("优惠券类型描述")
     private String typedesc;
-    @ApiModelProperty("最多抵现金额")
     private String max;
-    @ApiModelProperty("使用金额门槛")
     private String condition;
 
     public String getCouponkeys() {

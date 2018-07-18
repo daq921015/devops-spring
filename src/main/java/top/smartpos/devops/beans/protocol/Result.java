@@ -1,6 +1,5 @@
 package top.smartpos.devops.beans.protocol;
 
-import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 响应请求最外层封装对象（传递给前端）
@@ -14,17 +13,14 @@ public class Result<T> {
     /**
      * 错误码。
      */
-    @ApiModelProperty("响应类型编号(-1:未知错误，0:成功，100：参数验证失败，其它都代表程序捕获错误)")
     private Integer code;
     /**
      * 提示信息.
      */
-    @ApiModelProperty("响应结果描述")
     private String msg;
     /**
      * 具体的内容。
      */
-    @ApiModelProperty("具体返回结果，请求失败为null")
     private T data;
 
     public Integer getCode() {

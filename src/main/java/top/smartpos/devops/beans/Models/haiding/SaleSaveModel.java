@@ -1,10 +1,8 @@
 package top.smartpos.devops.beans.Models.haiding;
 
-import io.swagger.annotations.ApiModel;
 
 import java.util.List;
 
-@ApiModel(value = "post请求体结构")
 public class SaleSaveModel {
     private String posNo;
     private String flowNo;

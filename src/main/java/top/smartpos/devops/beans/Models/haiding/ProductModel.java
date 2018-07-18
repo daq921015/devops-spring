@@ -1,10 +1,8 @@
 package top.smartpos.devops.beans.Models.haiding;
 
-import io.swagger.annotations.ApiModel;
 
 import java.util.List;
 
-@ApiModel(value = "交易商品明细")
 public class ProductModel {
     private String line;
     private String backLine;

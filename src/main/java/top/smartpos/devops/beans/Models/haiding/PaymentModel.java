@@ -1,8 +1,6 @@
 package top.smartpos.devops.beans.Models.haiding;
 
-import io.swagger.annotations.ApiModel;
 
-@ApiModel(value = "交易付款明细")
 public class PaymentModel {
     private String line;
     private String payment;

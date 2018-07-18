@@ -1,21 +1,12 @@
 package top.smartpos.devops.beans.domains.haiding;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.List;
 
-@ApiModel(value = "付款方式")
 public class PaymentDomain {
-    @ApiModelProperty("唯一表示")
     private String uuid;
-    @ApiModelProperty("代码")
     private String code;
-    @ApiModelProperty("名称")
     private String name;
-    @ApiModelProperty("项目")
     private List<StoreDomain> store;
-    @ApiModelProperty("商户")
     private List<TenantDomain> tenant;
 
     public String getUuid() {
