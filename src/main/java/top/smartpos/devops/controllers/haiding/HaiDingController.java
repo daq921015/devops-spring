@@ -19,13 +19,7 @@ public class HaiDingController {
     @ApiOperation(tags = "海鼎接口", value = "上传销售数据(该接口不进行积分计算)", notes = "上传流水数据，包括订单详情、订单流水以及订单支付")
 //    @ApiRestAction(modelClass = SaleSaveModel.class, serviceClass = HaiDingService.class, methodName = "saleSave")
     @ApiResponses({@ApiResponse(code = 200, message = "successful operation", response = ResultHaiDingDomain.class)})
-    public ResultHaiDingDomain saleSave(@ApiParam(name = "body", value = "post请求体", required = true) @Valid @RequestBody SaleSaveModel body, BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            List<ObjectError> errorList = bindingResult.getAllErrors();
-//            for (ObjectError error : errorList) {
-//                System.out.println(error.getDefaultMessage());
-//            }
-//        }
+    public ResultHaiDingDomain saleSave(@ApiParam(name = "body", value = "post请求体", required = true) @Valid @RequestBody SaleSaveModel body) {
         return null;
     }
 
