@@ -20,6 +20,7 @@ public class HaiDingController {
 //    @ApiRestAction(modelClass = SaleSaveModel.class, serviceClass = HaiDingService.class, methodName = "saleSave")
     @ApiResponses({@ApiResponse(code = 200, message = "successful operation", response = ResultHaiDingDomain.class)})
     public ResultHaiDingDomain saleSave(@ApiParam(name = "body", value = "post请求体", required = true) @Valid @RequestBody SaleSaveModel body) {
+        System.out.println("123456");
         return null;
     }
 
